@@ -4,6 +4,7 @@ Generate a markdown TOC for a README or any GFM files.
 
 <!-- toc -->
 - [intoc](#intoc)
+  - [Feature](#feature)
   - [Install](#install)
   - [Requirement](#requirement)
   - [CLI](#cli)
