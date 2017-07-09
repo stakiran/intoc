@@ -138,10 +138,10 @@ class Duplicator:
         return ret
 
 class SectionLine:
-    def __init__(self, level, body):
+    def __init__(self, level, body, duplicator):
         self._lv = level
         self._body = body
-        self._duplicator = Duplicator()
+        self._duplicator = duplicator
 
     def set_indent_depth(self, num):
         self._indent_depth = num
@@ -177,6 +177,8 @@ if __name__ == "__main__":
     use_edit = args.edit
     edit_target = args.edit_target
 
+    duplicator = Duplicator()
+
     lines = file2list(infile)
     toclines = []
     edit_target_pos = None
@@ -206,7 +208,7 @@ if __name__ == "__main__":
 
         if parse_depth>=0 and sectionlevel>=parse_depth+1:
             continue
-        sl = SectionLine(sectionlevel, body)
+        sl = SectionLine(sectionlevel, body, duplicator)
         sl.set_indent_depth(indent_depth)
         toclines.append(sl.tocline)
 
@@ -217,6 +219,8 @@ if __name__ == "__main__":
     if args.edit_debug:
         print 'Edit Target    : {0}'.format(edit_target)
         print 'Edit Target Pos: {0}'.format(edit_target_pos)
+        print 'dup elems'
+        print dup
 
     outlines = lines[:edit_target_pos+1]
     outlines.extend(toclines)
