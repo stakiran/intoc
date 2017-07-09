@@ -100,7 +100,7 @@ def sectionname2anchor(sectionname, duplicator):
     return ret
 
 def is_edit_target_line(line, edit_target):
-    return line.strip().lower().find(edit_target.lower())!=-1
+    return line.strip().lower().startswith(edit_target.lower())
 
 def get_toc_range(lines, edit_target):
     """ @return (p_start, p_end) If no toc exists then p_end returns None. """
