@@ -4,6 +4,19 @@ import os
 import re
 import sys
 
+def abort(msg):
+    print 'Error!: {0}'.format(msg)
+    exit(1)
+
+def get_filename(path):
+    return os.path.basename(path)
+
+def get_basename(path):
+    return os.path.splitext(get_filename(path))[0]
+
+def get_extension(path):
+    return os.path.splitext(get_filename(path))[1]
+
 def file2list(filepath):
     ret = []
     with open(filepath, 'r') as f:
@@ -37,6 +50,8 @@ def parse_arguments():
     parser.add_argument('--edit-target', default='<!-- TOC',
         help='A insertion destination label when --edit given. NOT CASE-SENSITIVE.')
 
+    parser.add_argument('--md-guard-break', default=False, action='store_true',
+        help=argparse.SUPPRESS)
     parser.add_argument('--edit-debug', default=False, action='store_true',
         help=argparse.SUPPRESS)
     parser.add_argument('--debug', default=False, action='store_true',
@@ -172,6 +187,13 @@ if __name__ == "__main__":
 
     args = parse_arguments()
     infile = os.path.join(MYDIR, args.input)
+
+    # infile check
+    if not(os.path.exists(infile)):
+        abort('The input file "{0}" does not exists.'.format(infile))
+    if not(args.md_guard_break) and get_extension(infile)!='.md':
+        abort('The input file is not .md file')
+
     indent_depth = args.indent_depth
     parse_depth = args.parse_depth
     use_edit = args.edit

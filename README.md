@@ -128,6 +128,14 @@ Generate a markdown TOC for a README or any GFM files.
 ...
 ```
 
+## FAQ
+
+### Q: Is it possible to use intoc about any extension?
+
+A: Possible. Use `--md-guard-break` option.
+
+By default, intoc accepts only `.md` files.
+
 ## License
 
 [MIT License](LICENSE)
