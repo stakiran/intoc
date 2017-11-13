@@ -45,6 +45,9 @@ def parse_arguments():
     parser.add_argument('--parse-depth', default=-1, type=int,
         help='The depth of the TOC list nesting. If minus then no limit depth.')
 
+    parser.add_argument('--use-asterisk', default=False, action='store_true',
+        help='Use an asterisk `*` as a list grammer.')
+
     parser.add_argument('--edit', default=False, action='store_true',
         help='If given then insert TOC to the file from "--input".')
     parser.add_argument('--edit-target', default='<!-- TOC',
@@ -153,10 +156,11 @@ class Duplicator:
         return ret
 
 class SectionLine:
-    def __init__(self, level, body, duplicator):
+    def __init__(self, level, body, duplicator, listmark):
         self._lv = level
         self._body = body
         self._duplicator = duplicator
+        self._listmark = listmark
 
     def set_indent_depth(self, num):
         self._indent_depth = num
@@ -166,7 +170,7 @@ class SectionLine:
         normed_body = self._body.strip()
 
         indent = ' '*((self._lv-1)*self._indent_depth)
-        mark   = '-'
+        mark   = self._listmark
         text   = normed_body
         anchor = sectionname2anchor(normed_body, self._duplicator)
 
@@ -196,10 +200,15 @@ if __name__ == "__main__":
 
     indent_depth = args.indent_depth
     parse_depth = args.parse_depth
+    use_asterisk = args.use_asterisk
     use_edit = args.edit
     edit_target = args.edit_target
 
     duplicator = Duplicator()
+
+    listmark = '-'
+    if use_asterisk:
+        listmark = '*'
 
     lines = file2list(infile)
     toclines = []
@@ -230,7 +239,7 @@ if __name__ == "__main__":
 
         if parse_depth>=0 and sectionlevel>=parse_depth+1:
             continue
-        sl = SectionLine(sectionlevel, body, duplicator)
+        sl = SectionLine(sectionlevel, body, duplicator, listmark)
         sl.set_indent_depth(indent_depth)
         toclines.append(sl.tocline)
 
