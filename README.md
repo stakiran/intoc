@@ -1,6 +1,6 @@
 # intoc
 
-Generate a markdown TOC for a README or any GFM files.
+Generate a markdown TOC for a README or any Github-Flavored-Markdown files.
 
 <!-- toc -->
 - [intoc](#intoc)
@@ -16,8 +16,10 @@ Generate a markdown TOC for a README or any GFM files.
 ## Feature
 
 - Python based.
-- Output to the stdout or direct update(Insertion to the next of `<!-- toc -->` line).
 - No WebAPI use.
+- Multiple output ways.
+  - Output to the stdout
+  - Direct Update(Insert to the next of `<!-- toc -->` line directly).
 - Support sections written in Japanese.
 
 ## Install
@@ -31,7 +33,7 @@ And create a alias to `python intoc.py -i (TargetMarkdownFile)` if needed.
 ## Requirement
 
 - Python 2.7
-- Windows7+
+- Windows 7+
   - Maybe works on Linux, but not tested yet.
 
 ## CLI
@@ -39,7 +41,7 @@ And create a alias to `python intoc.py -i (TargetMarkdownFile)` if needed.
 ```
 $ python intoc.py -h
 usage: intoc.py [-h] -i INPUT [--indent-depth INDENT_DEPTH]
-                [--parse-depth PARSE_DEPTH] [--edit]
+                [--parse-depth PARSE_DEPTH] [--use-asterisk] [--edit]
                 [--edit-target EDIT_TARGET]
 
 optional arguments:
@@ -51,6 +53,8 @@ optional arguments:
   --parse-depth PARSE_DEPTH
                         The depth of the TOC list nesting. If minus then no
                         limit depth. (default: -1)
+  --use-asterisk        Use an asterisk `*` as a list grammer. (default:
+                        False)
   --edit                If given then insert TOC to the file from "--input".
                         (default: False)
   --edit-target EDIT_TARGET
@@ -88,7 +92,7 @@ Generate a markdown TOC for a README or any GFM files.
 If no other option, output to the stdout.
 
 ```
-$ python intoc.py -i intoc.md
+$ python intoc.py -i README.md
 - [intoc](#intoc)
   - [Install](#install)
   - [CLI](#cli)
@@ -100,20 +104,35 @@ $ python intoc.py -i intoc.md
 Use depth options.
 
 ```
-$ python intoc.py -i intoc.md --indent-depth 4 --parse-depth 2
+$ python intoc.py -i README.md --indent-depth 4 --parse-depth 2
 - [intoc](#intoc)
     - [Install](#install)
     - [CLI](#cli)
     - [Info](#info)
 ```
 
+Use asterisk.
+
+```
+$ python intoc.py -i README.md --use-asterisk
+* [intoc](#intoc)
+  * [Feature](#feature)
+  * [Install](#install)
+  * [Requirement](#requirement)
+  * [CLI](#cli)
+  * [Usage](#usage)
+  * [FAQ](#faq)
+  * [License](#license)
+  * [Author](#author)
+```
+
 Direct update the input file.
 
 ```
 
-$ python intoc.py -i intoc.md --edit
+$ python intoc.py -i README.md --edit
 
-$ type intoc.md
+$ type README.md
 # intoc
 Generate a markdown TOC for a README or any GFM files.
 
