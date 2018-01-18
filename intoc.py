@@ -5,7 +5,7 @@ import re
 import sys
 
 def abort(msg):
-    print 'Error!: {0}'.format(msg)
+    print('Error!: {0}'.format(msg))
     exit(1)
 
 def get_filename(path):
@@ -19,16 +19,13 @@ def get_extension(path):
 
 def file2list(filepath):
     ret = []
-    with open(filepath, 'r') as f:
+    with open(filepath, encoding='utf8', mode='r') as f:
         ret = [line.rstrip('\n') for line in f.readlines()]
     return ret
 
 def list2file(filepath, ls):
-    with open(filepath, 'w') as f:
-        f.writelines(['%s\n' % line for line in ls] )
-
-def terminalencoding2utf8(bytestr):
-    return bytestr.decode(sys.stdin.encoding).encode('utf8')
+    with open(filepath, encoding='utf8', mode='w') as f:
+        f.writelines(['{:}\n'.format(line) for line in ls] )
 
 def parse_arguments():
     import argparse
@@ -97,8 +94,8 @@ def sectionname2anchor(sectionname, duplicator):
     ret = re.sub(remove_targets, '', ret)
 
     # remove Japanese marks
-    remove_targets = u'[、。，．・：；？！゛゜´｀¨＾￣＿ヽヾゝゞ〃仝々〆〇‐／＼～∥｜…‥‘’“”（）〔〕［］｛｝〈〉《》「」『』【】＋－±×÷＝≠＜＞≦≧∞∴♂♀°′″℃￥＄￠￡％＃＆＊＠§☆★○●◎◇◆□■△▲▽▼※〒→←↑↓〓∈∋⊆⊇⊂⊃∪∩∧∨￢⇒⇔∀∃∠⊥⌒∂∇≡≒≪≫√∽∝∵∫∬Å‰♯♭♪ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψωАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя─│┌┐┘└├┬┤┴┼━┃┏┓┛┗┣┳┫┻╋┠┯┨┷┿┝┰┥┸╂｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ㍉㌔㌢㍍㌘㌧㌃㌶㍑㍗㌍㌦㌣㌫㍊㌻㎜㎝㎞㎎㎏㏄㎡　㍻〝〟№㏍℡㊤㊥㊦㊧㊨㈱㈲㈹㍾㍽㍼≒≡∫∮∑√⊥∠∟⊿∵∩∪]'
-    uret = re.sub(remove_targets, u'', ret.decode('utf-8'))
+    remove_targets = '[、。，．・：；？！゛゜´｀¨＾￣＿ヽヾゝゞ〃仝々〆〇‐／＼～∥｜…‥‘’“”（）〔〕［］｛｝〈〉《》「」『』【】＋－±×÷＝≠＜＞≦≧∞∴♂♀°′″℃￥＄￠￡％＃＆＊＠§☆★○●◎◇◆□■△▲▽▼※〒→←↑↓〓∈∋⊆⊇⊂⊃∪∩∧∨￢⇒⇔∀∃∠⊥⌒∂∇≡≒≪≫√∽∝∵∫∬Å‰♯♭♪ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψωАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя─│┌┐┘└├┬┤┴┼━┃┏┓┛┗┣┳┫┻╋┠┯┨┷┿┝┰┥┸╂｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ㍉㌔㌢㍍㌘㌧㌃㌶㍑㍗㌍㌦㌣㌫㍊㌻㎜㎝㎞㎎㎏㏄㎡　㍻〝〟№㏍℡㊤㊥㊦㊧㊨㈱㈲㈹㍾㍽㍼≒≡∫∮∑√⊥∠∟⊿∵∩∪]'
+    ret = re.sub(remove_targets, '', ret)
 
     # In GFM, do numbering if there is a duplicated anchor name.
     #
@@ -110,7 +107,6 @@ def sectionname2anchor(sectionname, duplicator):
     #   href="#section1"
     #   href="#section1-1"
     #   href="#section1-2"
-    ret = uret.encode('utf8')
     dup_count = duplicator.add(ret)
     if dup_count>0:
         ret = ret + '-{0}'.format(dup_count)
@@ -230,7 +226,7 @@ if __name__ == "__main__":
         if use_edit and edit_target_pos==None and is_edit_target_line(line, edit_target):
             edit_target_pos = i
             if args.debug:
-                print 'edit target pos: {0}'.format(edit_target_pos)
+                print('edit target pos: {0}'.format(edit_target_pos))
             continue
 
         sectionlevel, body = line2sectioninfo(line)
@@ -245,13 +241,13 @@ if __name__ == "__main__":
 
     if edit_target_pos==None:
         for i,line in enumerate(toclines):
-            print line
+            print(line)
         exit(0)
     if args.edit_debug:
-        print 'Edit Target    : {0}'.format(edit_target)
-        print 'Edit Target Pos: {0}'.format(edit_target_pos)
-        print 'dup elems'
-        print dup
+        print('Edit Target    : {0}'.format(edit_target))
+        print('Edit Target Pos: {0}'.format(edit_target_pos))
+        print('dup elems')
+        print(dup)
 
     outlines = lines[:edit_target_pos+1]
     outlines.extend(toclines)
@@ -262,7 +258,7 @@ if __name__ == "__main__":
     skippos = 0
     if startpos and endpos:
         if args.debug:
-            print 'start, end:({0}, {1})'.format(startpos, endpos)
+            print('start, end:({0}, {1})'.format(startpos, endpos))
         skippos = endpos - startpos
 
     outlines.extend(lines[edit_target_pos+1+skippos:])
