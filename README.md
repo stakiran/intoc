@@ -1,6 +1,6 @@
 # intoc
 
-Generate a markdown TOC for a README or any Github-Flavored-Markdown files.
+TOC generator for Markdown.
 
 <!-- toc -->
 - [intoc](#intoc)
@@ -8,8 +8,11 @@ Generate a markdown TOC for a README or any Github-Flavored-Markdown files.
   - [Install](#install)
   - [Requirement](#requirement)
   - [CLI](#cli)
-  - [Usage](#usage)
-  - [FAQ](#faq)
+  - [Samples](#samples)
+    - [Basic](#basic)
+    - [Depth control](#depth-control)
+    - [Use not hyphen but aasterisk](#use-not-hyphen-but-aasterisk)
+    - [Direct update](#direct-update)
   - [License](#license)
   - [Author](#author)
 
@@ -19,22 +22,22 @@ Generate a markdown TOC for a README or any Github-Flavored-Markdown files.
 - No WebAPI use.
 - Multiple output ways.
   - Output to the stdout
-  - Direct Update(Insert to the next of `<!-- toc -->` line directly).
+  - Direct Update(Insert TOC to the next of `<!-- toc -->` line directly).
 - Support sections written in Japanese.
 
 ## Install
 
 ```
 $ git clone https://github.com/stakiran/intoc
+$ cd intoc
+$ python intoc.py -i (Target-Markdown-File)
 ```
 
-And create a alias to `python intoc.py -i (TargetMarkdownFile)` if needed.
+Create an alias if needed.
 
 ## Requirement
 
-- Python 2.7
-- Windows 7+
-  - Maybe works on Linux, but not tested yet.
+- Python 3 (Tested on Python 3.6 and Windows 7+)
 
 ## CLI
 
@@ -62,14 +65,14 @@ optional arguments:
                         CASE-SENSITIVE. (default: <!-- TOC)
 ```
 
-## Usage
+## Samples
 
-Sample markdown file.
+The sample file `intoc.md` in this section is like this:
 
 ```
 $ type intoc.md
 # intoc
-Generate a markdown TOC for a README or any GFM files.
+TOC generator for Markdown.
 
 <!-- toc -->
 
@@ -89,7 +92,9 @@ Generate a markdown TOC for a README or any GFM files.
 ...
 ```
 
-If no other option, output to the stdout.
+### Basic
+
+An option `-i` is required for your input.
 
 ```
 $ python intoc.py -i README.md
@@ -101,7 +106,9 @@ $ python intoc.py -i README.md
     - [Author](#author)
 ```
 
-Use depth options.
+### Depth control
+
+`--indent-depth` and `--parse-depth`.
 
 ```
 $ python intoc.py -i README.md --indent-depth 4 --parse-depth 2
@@ -111,30 +118,30 @@ $ python intoc.py -i README.md --indent-depth 4 --parse-depth 2
     - [Info](#info)
 ```
 
-Use asterisk.
+### Use not hyphen but aasterisk
+
+`--use-asterisk`.
 
 ```
 $ python intoc.py -i README.md --use-asterisk
 * [intoc](#intoc)
-  * [Feature](#feature)
   * [Install](#install)
-  * [Requirement](#requirement)
   * [CLI](#cli)
-  * [Usage](#usage)
-  * [FAQ](#faq)
-  * [License](#license)
-  * [Author](#author)
+  * [Info](#info)
+    * [License](#license)
+    * [Author](#author)
 ```
 
-Direct update the input file.
+### Direct update
+
+Write `<!-- toc -->` to your input file and use `--edit`.
 
 ```
-
 $ python intoc.py -i README.md --edit
 
 $ type README.md
 # intoc
-Generate a markdown TOC for a README or any GFM files.
+TOC generator for Markdown.
 
 <!-- toc -->
 - [intoc](#intoc)
@@ -147,12 +154,6 @@ Generate a markdown TOC for a README or any GFM files.
 ## Install
 ...
 ```
-
-## FAQ
-
-- Q: Is it possible to use intoc about any extension?
-  - Ans: Possible. Use `--md-guard-break` option.
-  - By default, intoc accepts only `.md` files.
 
 ## License
 
