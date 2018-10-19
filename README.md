@@ -13,6 +13,7 @@ TOC generator for Markdown.
     - [Depth control](#depth-control)
     - [Use not hyphen but aasterisk](#use-not-hyphen-but-aasterisk)
     - [Direct update](#direct-update)
+    - [Plain enumeration](#plain-enumeration)
   - [License](#license)
   - [Author](#author)
 
@@ -44,8 +45,8 @@ Create an alias if needed.
 ```
 $ python intoc.py -h
 usage: intoc.py [-h] -i INPUT [--indent-depth INDENT_DEPTH]
-                [--parse-depth PARSE_DEPTH] [--use-asterisk] [--edit]
-                [--edit-target EDIT_TARGET]
+                [--parse-depth PARSE_DEPTH] [--use-asterisk]
+                [--use-plain-enum] [--edit] [--edit-target EDIT_TARGET]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -58,6 +59,8 @@ optional arguments:
                         limit depth. (default: -1)
   --use-asterisk        Use an asterisk `*` as a list grammer. (default:
                         False)
+  --use-plain-enum      Not use Markdown grammer, but use simple plain section
+                        name listing. (default: False)
   --edit                If given then insert TOC to the file from "--input".
                         (default: False)
   --edit-target EDIT_TARGET
@@ -153,6 +156,27 @@ TOC generator for Markdown.
 
 ## Install
 ...
+```
+
+### Plain enumeration
+
+`--use-plain-enum`.
+
+```
+$ python intoc.py -i README.md --use-plain-enum
+intoc
+Feature
+Install
+Requirement
+CLI
+Samples
+Basic
+Depth control
+Use not hyphen but aasterisk
+Direct update
+Plain Enumeration
+License
+Author
 ```
 
 ## License

@@ -45,6 +45,9 @@ def parse_arguments():
     parser.add_argument('--use-asterisk', default=False, action='store_true',
         help='Use an asterisk `*` as a list grammer.')
 
+    parser.add_argument('--use-plain-enum', default=False, action='store_true',
+        help='Not use Markdown grammer, but use simple plain section name listing.')
+
     parser.add_argument('--edit', default=False, action='store_true',
         help='If given then insert TOC to the file from "--input".')
     parser.add_argument('--edit-target', default='<!-- TOC',
@@ -179,6 +182,11 @@ class SectionLine:
 
         return ret
 
+    @property
+    def plainline(self):
+        normed_body = self._body.strip()
+        return normed_body
+
     def __str__(self):
         return 'LV{0} [{1}]'.format(self._lv, self._body)
 
@@ -197,6 +205,7 @@ if __name__ == "__main__":
     indent_depth = args.indent_depth
     parse_depth = args.parse_depth
     use_asterisk = args.use_asterisk
+    use_plain_enum = args.use_plain_enum
     use_edit = args.edit
     edit_target = args.edit_target
 
@@ -237,7 +246,12 @@ if __name__ == "__main__":
             continue
         sl = SectionLine(sectionlevel, body, duplicator, listmark)
         sl.set_indent_depth(indent_depth)
-        toclines.append(sl.tocline)
+
+        appendee_line = sl.tocline
+        if use_plain_enum:
+            appendee_line = sl.plainline
+
+        toclines.append(appendee_line)
 
     if edit_target_pos==None:
         for i,line in enumerate(toclines):
