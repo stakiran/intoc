@@ -14,6 +14,7 @@ TOC generator for Markdown.
     - [Use not hyphen but aasterisk](#use-not-hyphen-but-aasterisk)
     - [Direct update](#direct-update)
     - [Plain enumeration](#plain-enumeration)
+    - [No link format but keep list grammer](#no-link-format-but-keep-list-grammer)
   - [License](#license)
   - [Author](#author)
 
@@ -46,7 +47,8 @@ Create an alias if needed.
 $ python intoc.py -h
 usage: intoc.py [-h] -i INPUT [--indent-depth INDENT_DEPTH]
                 [--parse-depth PARSE_DEPTH] [--use-asterisk]
-                [--use-plain-enum] [--edit] [--edit-target EDIT_TARGET]
+                [--use-plain-enum] [--no-linkformat] [--edit]
+                [--edit-target EDIT_TARGET]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -61,6 +63,8 @@ optional arguments:
                         False)
   --use-plain-enum      Not use Markdown grammer, but use simple plain section
                         name listing. (default: False)
+  --no-linkformat       Not use `- [text](#anochor)`, but use `- text`.
+                        (default: False)
   --edit                If given then insert TOC to the file from "--input".
                         (default: False)
   --edit-target EDIT_TARGET
@@ -177,6 +181,28 @@ Direct update
 Plain Enumeration
 License
 Author
+```
+
+### No link format but keep list grammer
+
+`--no-linkformat`.
+
+```
+$ python intoc.py -i README.md --no-linkformat
+- intoc
+  - Feature
+  - Install
+  - Requirement
+  - CLI
+  - Samples
+    - Basic
+    - Depth control
+    - Use not hyphen but aasterisk
+    - Direct update
+    - Plain enumeration
+    - No link format but keep list grammer.
+  - License
+  - Author
 ```
 
 ## License

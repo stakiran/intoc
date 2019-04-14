@@ -48,6 +48,9 @@ def parse_arguments():
     parser.add_argument('--use-plain-enum', default=False, action='store_true',
         help='Not use Markdown grammer, but use simple plain section name listing.')
 
+    parser.add_argument('--no-linkformat', default=False, action='store_true',
+        help='Not use `- [text](#anochor)`, but use `- text`.')
+
     parser.add_argument('--edit', default=False, action='store_true',
         help='If given then insert TOC to the file from "--input".')
     parser.add_argument('--edit-target', default='<!-- TOC',
@@ -183,6 +186,22 @@ class SectionLine:
         return ret
 
     @property
+    def tocline_without_linkformat(self):
+        normed_body = self._body.strip()
+
+        indent = ' '*((self._lv-1)*self._indent_depth)
+        mark   = self._listmark
+        text   = normed_body
+
+        ret = '{0}{1} {2}'.format(
+            indent,
+            mark,
+            text
+        )
+
+        return ret
+
+    @property
     def plainline(self):
         normed_body = self._body.strip()
         return normed_body
@@ -199,13 +218,14 @@ if __name__ == "__main__":
     # infile check
     if not(os.path.exists(infile)):
         abort('The input file "{0}" does not exists.'.format(infile))
-    if not(args.md_guard_break) and get_extension(infile)!='.md':
+    if not(args.md_guard_break) and get_extension(infile).lower()!='.md':
         abort('The input file is not .md file')
 
     indent_depth = args.indent_depth
     parse_depth = args.parse_depth
     use_asterisk = args.use_asterisk
     use_plain_enum = args.use_plain_enum
+    use_nolinkformat = args.no_linkformat
     use_edit = args.edit
     edit_target = args.edit_target
 
@@ -248,6 +268,8 @@ if __name__ == "__main__":
         sl.set_indent_depth(indent_depth)
 
         appendee_line = sl.tocline
+        if use_nolinkformat:
+            appendee_line = sl.tocline_without_linkformat
         if use_plain_enum:
             appendee_line = sl.plainline
 
