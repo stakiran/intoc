@@ -74,31 +74,6 @@ optional arguments:
 
 ## Samples
 
-The sample file `intoc.md` in this section is like this:
-
-```
-$ type intoc.md
-# intoc
-TOC generator for Markdown.
-
-<!-- toc -->
-
-## Install
-...
-
-## CLI
-..
-
-## Info
-...
-
-### License
-...
-
-### Author
-...
-```
-
 ### Basic
 
 An option `-i` is required for your input.
@@ -106,11 +81,19 @@ An option `-i` is required for your input.
 ```
 $ python intoc.py -i README.md
 - [intoc](#intoc)
+  - [Feature](#feature)
   - [Install](#install)
+  - [Requirement](#requirement)
   - [CLI](#cli)
-  - [Info](#info)
-    - [License](#license)
-    - [Author](#author)
+  - [Samples](#samples)
+    - [Basic](#basic)
+    - [Depth control](#depth-control)
+    - [Use not hyphen but aasterisk](#use-not-hyphen-but-aasterisk)
+    - [Direct update](#direct-update)
+    - [Plain enumeration](#plain-enumeration)
+    - [No link format but keep list grammer](#no-link-format-but-keep-list-grammer)
+  - [License](#license)
+  - [Author](#author)
 ```
 
 ### Depth control
@@ -120,9 +103,13 @@ $ python intoc.py -i README.md
 ```
 $ python intoc.py -i README.md --indent-depth 4 --parse-depth 2
 - [intoc](#intoc)
+    - [Feature](#feature)
     - [Install](#install)
+    - [Requirement](#requirement)
     - [CLI](#cli)
-    - [Info](#info)
+    - [Samples](#samples)
+    - [License](#license)
+    - [Author](#author)
 ```
 
 ### Use not hyphen but aasterisk
@@ -132,11 +119,19 @@ $ python intoc.py -i README.md --indent-depth 4 --parse-depth 2
 ```
 $ python intoc.py -i README.md --use-asterisk
 * [intoc](#intoc)
+  * [Feature](#feature)
   * [Install](#install)
+  * [Requirement](#requirement)
   * [CLI](#cli)
-  * [Info](#info)
-    * [License](#license)
-    * [Author](#author)
+  * [Samples](#samples)
+    * [Basic](#basic)
+    * [Depth control](#depth-control)
+    * [Use not hyphen but aasterisk](#use-not-hyphen-but-aasterisk)
+    * [Direct update](#direct-update)
+    * [Plain enumeration](#plain-enumeration)
+    * [No link format but keep list grammer](#no-link-format-but-keep-list-grammer)
+  * [License](#license)
+  * [Author](#author)
 ```
 
 ### Direct update
@@ -148,17 +143,26 @@ $ python intoc.py -i README.md --edit
 
 $ type README.md
 # intoc
+
 TOC generator for Markdown.
 
 <!-- toc -->
 - [intoc](#intoc)
+  - [Feature](#feature)
   - [Install](#install)
+  - [Requirement](#requirement)
   - [CLI](#cli)
-  - [Info](#info)
-    - [License](#license)
-    - [Author](#author)
+  - [Samples](#samples)
+    - [Basic](#basic)
+    - [Depth control](#depth-control)
+    - [Use not hyphen but aasterisk](#use-not-hyphen-but-aasterisk)
+    - [Direct update](#direct-update)
+    - [Plain enumeration](#plain-enumeration)
+    - [No link format but keep list grammer](#no-link-format-but-keep-list-grammer)
+  - [License](#license)
+  - [Author](#author)
 
-## Install
+## Feature
 ...
 ```
 
