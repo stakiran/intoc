@@ -27,7 +27,7 @@ TOC generator for Markdown.
   - Direct Update(Insert TOC to the next of `<!-- toc -->` line directly).
 - Support sections written in Japanese.
 
-## Install
+## How to use
 
 ```
 $ git clone https://github.com/stakiran/intoc
